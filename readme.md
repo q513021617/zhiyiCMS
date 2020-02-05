@@ -19,10 +19,33 @@ VUE + VUEX + axios + adminLTE3
 
 ![移动端](http://cdn.zhiyigo.cn/CMS-Phone.jpg)
 
+# 使用说明
 
 
+## 安装本项目
 
+1，克隆项目到本地
+```
+git clone https://github.com/q513021617/zhiyiCMS.git
+```
+2，进入前端项目目录并打开终端
 
+```
+npm install
 
+```
+3,用idea导入后端目录的源码即可使用
+
+### 注意:
+    1，本地需要安装maven并配好maven源
+    
+    2，本地需要安装npm环境并配好npm源
+    
+    3，如果对这些操作不熟悉的，请先学习一下相关基础知识（springboot开发环境搭建，VUE开发环境搭建）
+    
+    
+    
 # To developer
 我会不定期更新此业务功能以及整合新的业务框架进去，大家可以提需要哪些业务功能，我会在后期一一添加
+
+
