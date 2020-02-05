@@ -4,7 +4,7 @@
 和 VUE即可在几天的时间内快速开发出一个简单的web应用。
 
 ## 后端技术框架
-springboot + spring JPA 
+springboot + spring JPA + mysql
 
 ## 前端技术框架
 VUE + VUEX + axios + adminLTE3
