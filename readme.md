@@ -11,6 +11,8 @@ VUE + VUEX + axios + adminLTE3
 
 # 页面效果
 
+![PC端登录界面](http://cdn.zhiyigo.cn/CMS-PClogin.jpg)
+
 ![PC端](http://cdn.zhiyigo.cn/CMS-PC.jpg)
 
 ![移动端](http://cdn.zhiyigo.cn/CMS-Phone.jpg)
