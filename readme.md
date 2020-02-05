@@ -18,3 +18,11 @@ VUE + VUEX + axios + adminLTE3
 ![PC端](http://cdn.zhiyigo.cn/CMS-PC.jpg)
 
 ![移动端](http://cdn.zhiyigo.cn/CMS-Phone.jpg)
+
+
+
+
+
+
+# To developer
+我会不定期更新此业务功能以及整合新的业务框架进去，大家可以提需要哪些业务功能，我会在后期一一添加
