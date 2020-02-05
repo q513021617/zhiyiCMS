@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/commonhead :: common_header(~{::title},~{::link})">
+
+</head>
+<body>
+
+<div id="commonnav" th:replace="common/commonnav :: adminnav"  >
+
+</div>
+<div class="row">
+    <h1>技能树</h1>
+
+
+</div>
+
+<div class="row">
+
+    <div id="chartMain" style="width: 2000px;height:70em;overflow-x:scroll;margin: 0 0;">
+
+    </div>
+
+</div>
+
+<div th:replace="common/commonfooter :: myfooter"  ></div>
+<script>
+    var myChart= echarts.init(document.getElementById('chartMain'));
+    var clickcount=0;
+    var heightcount=30;
+    heightcount=heightcount+500;
+    myChart.showLoading();
+
+    $.get('/dist/flare.json', function (data) {
+
+        myChart.hideLoading();
+
+
+
+        myChart.setOption(option = {
+
+
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            calculable : false,
+            series:[
+                {
+                    type: 'tree',
+
+                    data: [data],
+
+                    left: '2%',
+                    right: '2%',
+                    top: '8%',
+                    bottom: '20%',
+                    draggable:"true",
+                    symbol: 'emptyCircle',
+                    orient: 'vertical',
+                    expandAndCollapse: true,
+                    nodePadding:25,
+                    label: {
+                        position: 'top',
+                        rotate: -90,
+                        verticalAlign: 'auto',
+                        align: 'right',
+                        fontSize: 12
+                    },
+
+                    leaves: {
+                        label: {
+                            position: 'bottom',
+                            rotate: -90,
+                            verticalAlign: 'auto',
+                            align: 'left'
+                        }
+                    },
+
+                    animationDurationUpdate: 750
+                }
+            ]
+        });
+
+        myChart.on('click', function (params) {
+
+
+            if(params.value){
+                alert("单击了"+params.name+"树状图");
+            }else{
+
+            }
+
+        });
+    });
+</script>
+</body>
+</html>

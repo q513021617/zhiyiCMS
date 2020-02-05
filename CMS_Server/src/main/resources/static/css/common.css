@@ -1,0 +1,39 @@
+    /* 盒子模型，列表，图片，a，标题，普通字体 默认样式重置 */
+    *{margin: 0;padding: 0;}
+    ul,ol{list-style: none;}
+    img{display: block;}
+    a{text-decoration: none;color: #323232;}
+    h1,h2,h3{font-size: 16px;}
+    body{font-family: Arial;}
+    
+    /* 设置浮动，清除浮动， */
+    .leftfloat{float: left;}
+    .rightfloat{float: right;}
+    .clearfloat:atfer{content: "";display: block;clear: both;}
+
+    /* 设置版心的大小,并且为了版心绝对定位于是这里设置一个相对定位 */
+    .container{width: 1080px;margin: 0 auto;position: relative;}
+    /* 设置通栏 */
+    .container-fluid{width: 100%;}
+
+
+
+    #head{height:81px}
+
+    #head .head_logo{width: 162px;height: 44px;margin-top: 19px;}
+
+
+    #head .head_menu{font-size:14px;margin-top: 19px;}
+
+    #head .head_menu li{float: left; margin-left: 58px;}
+
+    .area_title{margin-top: 60px;text-align: center;}
+    .area_title h2{height:20px; line-height: 20px;font-size: 20px;color: #363636;background: url(../images/title_bg.png) no-repeat center 1px;font-weight:normal ;}
+    .area_title p{color: #9f9f9f;font-size: 14px;line-height: 34px;}
+
+
+    #foot {background: #0ec4a2;height: 54px;}
+    #foot #container{height: 54px;line-height: 54px;font-size: 12px;color:white;}
+
+    #foot div{margin: 0 220px;}
+    #foot div a{color: white;margin: 0 10px;}

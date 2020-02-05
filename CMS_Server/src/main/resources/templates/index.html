@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/commonhead :: common_header(~{::title},~{::link})">
+
+</head>
+
+<style>
+
+    #banner{position: relative;}
+
+    #banner .banner_list{width: 100%;height: 469px;position: relative;}
+    /* position: absolute;left: 0;top: 0; opacity:0; z-index: 1; 使所有图片都在一个位置上,并隐藏所有图片,并把图片放在底层 */
+    #banner .banner_list li{width: 100%;height: 100%;background: center 0 no-repeat;position: absolute;left: 0;top: 0;opacity:0;z-index: 1;}
+    /* 显示图片，并放在上层 */
+    #banner .banner_list li.active{opacity:1;z-index: 10;}
+    /* 宽高属性直接会继承自父节点 */
+    #banner .banner_list li a{display: block;width: 100%;height: 100%;}
+    /* banner按钮因为是固定一个位置不动因此采用绝对定位 font-size: 0px 是按钮之间的宽度*/
+    #banner .banner_btn{width: 100%;position: absolute;bottom: 8px;left: 6px;z-index: 20;font-size: 0px;text-align: center;
+    }
+    /* 四个按钮是并排显示因此采用的是 inline-block 每个按钮的大小就是li的大小*/
+    #banner .banner_btn li{display: inline-block;width: 12px;height: 12px;border: 2px solid white;
+        border-radius: 50%; box-sizing: border-box;margin: 0 6px;cursor: pointer;
+
+    }
+
+    #banner .banner_btn li.active{background: red;}
+
+
+    #service {overflow: hidden;min-height: 407px;}
+    #service .service_list{text-align: center;margin-top: 34px;}
+    #service .service_list li{float: left;width: 250px;margin: 0 10px;}
+    #service .service_list div{width: 102px;height: 102px;margin: 0 auto;}
+    #service .service_list li:nth-of-type(1) div{background-image: url(/images/icon01.gif);}
+    #service .service_list li:nth-of-type(2) div{background-image: url(/images/icon02.gif);}
+    #service .service_list li:nth-of-type(3) div{background-image: url(/images/icon03.gif);}
+    #service .service_list li:nth-of-type(4) div{background-image: url(/images/icon04.gif);}
+    #service .service_list h3{font-size: 18px;color: #434343;line-height: 36px;margin-top: 25px;}
+    #service .service_list p{font-size: 14px;color: #6d6d6d;line-height: 22px;}
+    #case{background: #f8f8f8;}
+    #case .container{min-height: 460px;overflow: hidden;}
+    #case .case_title{margin-top: 55px;}
+    #case .case_title h2{color: #66c5b4;}
+    #case .case_list{margin-top: 28px;height: 180px;}
+    #case .case_list li{float: left;width: 340px;margin:0 10px;}
+    #case .case_btn{width: 176px; height: 37px;background: #66c5b4;margin: 0 auto;border-radius: 25px;
+        line-height: 37px;text-align: center;font-size: 14px;margin-top: 36px;}
+    #case .case_btn a{display: block;width: 100%;height:100%;color: white;}
+
+    #news{min-height: 450px;overflow: hidden;}
+
+    #news .area_title{margin-top: 65px;}
+    #news dl{margin-top: 48px;}
+    #news dt{width:234px;}
+
+    #news dd{width: 846px;}
+
+    #news .new_list{width: 100%;}
+
+    #news .new_list li{width: 50%;float: left;margin-bottom: 48px;}
+
+    #news .new_date{width: 71px;height: 70px;border-right:1px solid #dcdcdc;text-align: center;}
+    #news .new_date i{color: #66c5b4;font-size: 39px;display: block;font-weight: bold;}
+    #news .new_date span{color: #999999;font-size: 20px;line-height: 36px;}
+    #news .new_text{width: 270px;margin-left: 80px;margin-top: -60px;}
+    #news .new_text h3{font-size: 14px;}
+    #news .new_text h3 a{color: #3f3f3f;}
+    #news .new_text p{color: #A4A4A4;font-size: 12px;line-height: 21px;margin-top: 17px;}
+
+</style>
+
+<body>
+
+<div id="commonnav" th:replace="common/commonnav :: adminnav"  >
+
+</div>
+<div id="banner" class="contaner-fluid">
+    <!-- banner中的图片是通过有序列表实现的 -->
+    <ul id="banner_list" class="banner_list">
+
+        <li class="active" style="background-image: url(/images/banner01.jpg);">
+
+            <a href="#"></a>
+        </li>
+
+        <li style="background-image: url(/images/banner02.jpg);">
+
+            <a href="#"></a>
+        </li>
+        <li style="background-image: url(/images/banner03.jpg);">
+
+            <a href="#"></a>
+        </li>
+
+        <li style="background-image: url(/images/banner04.jpg);">
+
+            <a href="#"></a>
+        </li>
+    </ul>
+
+    <!-- banner 的点都是通过无序列表实现的 -->
+    <ol id="banner_btn" class="banner_btn">
+
+        <li class="active" onclick="change_img(this)"></li>
+        <li onclick="change_img(this)"></li>
+        <li onclick="change_img(this)"></li>
+        <li onclick="change_img(this)"></li>
+
+    </ol>
+</div>
+
+
+<div id="service" class="container">
+    <div class="area_title">
+        <h2>服务范围</h2>
+        <p>OUR SERVICES</p>
+        <ul class="service_list">
+            <li>
+                <div></div>
+                <h3>1,测试内容</h3>
+                <p>测试内容测试内容测试内容
+                    <br>测试内容</p>
+            </li>
+
+            <li>
+                <div></div>
+                <h3>2,测试内容</h3>
+                <p>测试内容测试内容测试内容
+                    <br>测试内容</p>
+            </li>
+
+            <li>
+                <div></div>
+                <h3>3,测试内容</h3>
+                <p>测试内容测试内容测试内容
+                    <br>测试内容</p>
+            </li>
+            <li>
+                <div></div>
+                <h3>4,测试内容</h3>
+                <p>测试内容测试内容测试内容
+                    <br>测试内容</p>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+<div id="case" class="container-fluid">
+    <div class="container">
+        <div class="case_title area_title">
+            <h2>{客户案例}</h2>
+            <p>案例案例案例案例案例案例案例案例案例案例</p>
+        </div>
+        <ul class="case_list clear">
+            <li>
+                <a href="#"><img src="/images/demo01.gif" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="/images/demo02.gif" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="/images/demo03.gif" alt=""></a>
+            </li>
+        </ul>
+
+        <div class="case_btn">
+            <a href="#">view more</a>
+        </div>
+    </div>
+</div>
+
+<div id="news" class="container">
+
+    <div class="area_title">
+        <h2>最新资讯</h2>
+        <p>THE LATEST NEWS</p>
+    </div>
+
+    <dl>
+
+        <dt class="leftfloat">
+            <img src="/images/address.gif" alt="">
+        </dt>
+        <dd class="leftfloat">
+
+            <ul class="new_list">
+                <li>
+
+                    <div class="new_date leftfloat">
+                        <i>09</i>
+                        <span>Jan</span>
+                        <div class="new_text leftfloat">
+                            <h3><a href="#">测试内容测试内容</a></h3>
+                            <p>测试内容测试内容测试内容测试内容测试内容测试内容....</p>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+
+                    <div class="new_date leftfloat">
+                        <i>09</i>
+                        <span>Jan</span>
+                        <div class="new_text leftfloat">
+                            <h3><a href="#">测试内容测试内容</a></h3>
+                            <p>测试内容测试内容测试内容测试内容测试内容测试内容....</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+
+                    <div class="new_date leftfloat">
+                        <i>09</i>
+                        <span>Jan</span>
+                        <div class="new_text leftfloat">
+                            <h3><a href="#">测试内容测试内容</a></h3>
+                            <p>测试内容测试内容测试内容测试内容测试内容测试内容....</p>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+
+                    <div class="new_date leftfloat">
+                        <i>09</i>
+                        <span>Jan</span>
+                        <div class="new_text leftfloat">
+                            <h3><a href="#">测试内容测试内容</a></h3>
+                            <p>测试内容测试内容测试内容测试内容测试内容测试内容....</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+
+
+<div th:replace="common/commonfooter :: myfooter"  ></div>
+
+
+<script>
+    var lastindex = 0;
+
+    var ol=document.getElementById("banner_btn");
+    var ul=document.getElementById("banner_list");
+
+    var ollist=ol.querySelectorAll('li');
+    var ullist=ul.querySelectorAll('li');
+
+    console.log(ollist);
+    for(var i=0;i<ollist.length;i++){
+        ollist[i].index=i;
+        ullist[i].index=i;
+    }
+
+
+
+
+
+
+    function change_img(ele){
+
+        ollist.forEach(element => {
+            if(element.index==lastindex){
+            element.className='';
+        }
+
+        ullist.forEach(ulelement => {
+            if(element.index==ulelement.index){
+            ulelement.className='';
+        }
+
+    });
+    });
+
+        ele.className='active';
+        ullist.forEach(ulelement => {
+            if(ele.index==ulelement.index){
+            ulelement.className='active';
+        }
+
+    });
+        lastindex=ele.index;
+
+    }
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
