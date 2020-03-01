@@ -12,12 +12,12 @@ VUE + VUEX + axios + adminLTE3
 # 页面效果
 
 
-![PC端登录界面](http://cdn.zhiyigo.cn/CMS-PClogin.jpg)
+![PC端登录界面](https://github.com/q513021617/zhiyiCMS/blob/master/01.png)
 
 
-![PC端](http://cdn.zhiyigo.cn/CMS-PC.jpg)
+![PC端](https://github.com/q513021617/zhiyiCMS/blob/master/02.png)
 
-![移动端](http://cdn.zhiyigo.cn/CMS-Phone.jpg)
+![移动端](https://github.com/q513021617/zhiyiCMS/blob/master/03.png)
 
 # 使用说明
 
