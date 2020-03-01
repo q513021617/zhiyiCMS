@@ -15,9 +15,9 @@ VUE + VUEX + axios + adminLTE3
 ![PC端登录界面](https://github.com/q513021617/zhiyiCMS/blob/master/01.png)
 
 
-![PC端](https://github.com/q513021617/zhiyiCMS/blob/master/02.png)
+![PC端](https://github.com/q513021617/zhiyiCMS/blob/master/02.jpg)
 
-![移动端](https://github.com/q513021617/zhiyiCMS/blob/master/03.png)
+![移动端](https://github.com/q513021617/zhiyiCMS/blob/master/03.jpg)
 
 # 使用说明
 
