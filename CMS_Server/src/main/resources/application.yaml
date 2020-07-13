@@ -6,10 +6,10 @@ spring:
       enabled: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/botian_cloud?serverTimezone=UTC
     hikari: # springboot 2.0 整合了hikari ,据说这是目前性能最好的java数据库连接池
       username: root
-      password: root
+      password: 123456
   jpa:
     hibernate:
       ddl-auto: update  # 第一次建表create  后面用update，要不然每次重启都会新建表

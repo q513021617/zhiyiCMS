@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,16 +52,18 @@ public class CommonUserController {
         return  userDao.save(webUser);
     }
 
-    @DeleteMapping("/")
-    public void delOneUser(WebUser webUser){
+    @PostMapping("/del/")
+    public Object delOneUser(WebUser webUser){
 
         userDao.delete(webUser);
+        return new HashMap<>();
     }
 
     @DeleteMapping("/all")
-    public void delAllUser(){
+    public Object delAllUser(){
 
         userDao.deleteAll();
+        return new HashMap<>();
     }
 
 }

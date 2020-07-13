@@ -1,18 +1,18 @@
 
 <template>
-<div>
-    
+  <div>
     <footer class="main-footer">
-        <strong>Copyright &copy; 2018-2020 <a href="#">zhiyigo.cn</a>.</strong>
-        All rights reserved
+      <strong>
+        Copyright &copy; 2020-2021
+        <a href="#">botian.cn</a>.
+      </strong>
+      All rights reserved
     </footer>
-</div>
-
+  </div>
 </template>
 
 <script>
-
 export default {
-  name: 'mainfooter',
+  name: 'mainfooter'
 }
 </script>

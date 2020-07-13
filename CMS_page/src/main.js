@@ -4,6 +4,8 @@ import router from './router'
 import httpmethods from './tools/http'
 import store from './store'
 import cors from 'koa2-cors'
+import toast from '@/components/Toast'
+import MessageModal from '@/components/MessageModal'
 
 
 import 'admin-lte/dist/css/adminlte.min.css'
@@ -13,6 +15,8 @@ import 'admin-lte/plugins/chart.js/Chart.min.js'
 
 Vue.config.productionTip = false
 
+Vue.use(toast);
+Vue.use(MessageModal);
 new Vue({
   router,
   store,
