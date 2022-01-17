@@ -1,10 +1,90 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/common_header :: common_header(~{::title},~{::link},~{})">
+<head th:include="common/common_header :: common_header(~{::title},~{::link},~{})">
     <meta charset="UTF-8">
     <title>zhiyigocms--首页</title>
 </head>
 <body>
+<div id="app">
 
+
+    <el-row>
+        <el-col :span="6">
+            <el-button @click="isCollapse=!isCollapse">展开</el-button>
+            <el-menu default-active="1" class="el-menu-vertical-demo"  :collapse="isCollapse">
+
+                <el-menu-item :index="index" v-for="(item,index) in menulist">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title" @click="changeUrl(item.url)">{{item.name}}</span>
+                </el-menu-item>
+
+            </el-menu>
+        </el-col>
+        <el-col :span="18" ><iframe :src="routeUrl" :key="pagekey" width="100%" height="850px"></iframe></el-col>
+    </el-row>
+</div>
+
+<script>
+    new Vue({
+            el: '#app',
+        data:{
+
+                menulist:[],
+                user:{},
+            isCollapse:false,
+            routeUrl:"http://127.0.0.1:7888/path?url=index",
+            pagekey:888
+        }
+        ,methods:{
+            changeUrl (url){
+                this.routeUrl=url;
+                this.pagekey=this.pagekey+1;
+                console.log(this.pagekey);
+
+            },
+            queryAllMenu:async function () {
+                var _this=this;
+                let {data}=await queryMenuList();
+                _this.menulist=data;
+                _this.$forceUpdate();
+            },
+            quitlogin:function(){
+                cookieOption.delCookie("userdata");
+                location.href="/path?url=admin/login";
+            },
+            queryuserbyid:async function(id){
+                var _this=this;
+                let {data}= await queryUserDetail(id);
+                console.log("--------queryuserbyid----------");
+                console.log(data);
+                if(!data){
+                    _this.quitlogin();
+                    return;
+                }
+                _this.user=data;
+            }
+        },created: function () {
+
+            var _this=this;
+            var usercookiedata = getCookie("userdata");
+
+            console.log("usercookiedata");
+            console.log(usercookiedata);
+            if(usercookiedata == undefined || usercookiedata.length == 0){
+
+                location.href="/path?url=admin/login";
+            }
+            if(!(usercookiedata == undefined || usercookiedata.length == 0)){
+
+                this.queryuserbyid(usercookiedata);
+
+            }
+
+            this.queryAllMenu();
+        }
+
+        })
+
+</script>
 </body>
 </html>

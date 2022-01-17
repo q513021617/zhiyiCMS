@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common_header :: common_header(~{::title},~{::link},~{})">
+    <meta charset="UTF-8">
+    <title>zhiyigoCms管理界面</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div>
+<div  id="app">
+    <el-table
+            :data="datalist"
+            border
+            style="width: 100%">
+
+        <el-table-column
+                :prop="item.fieldName"
+                :label="item.fieldCnName" v-for="item in columns">
+        </el-table-column>
+        <el-table-column
+                fixed="right"
+                label="操作"
+                width="100">
+            <template slot-scope="scope">
+                <el-button @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
+                <el-button @click="handleDelClick(scope.row)" type="text" size="small">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%">
+        <el-form :inline="true" :model="formdata" >
+            <el-form-item :label="item.fieldCnName" v-for="item in columns">
+                <el-input v-model="formdata[item.fieldName]" ></el-input>
+            </el-form-item>
+        </el-form>
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="saveData">确 定</el-button>
+  </span>
+    </el-dialog>
+</div>
+</div>
+<script>
+    new Vue({
+            el: '#app',
+            created() {
+                this.getAllData()
+            },
+            mounted() {},
+            data: {
+                datalist:[],
+                columns:[{fieldName:"id",fieldCnName:"#"},{fieldName:"name",fieldCnName:"菜单名"},{fieldName:"enname",fieldCnName:"菜单英文名"}],
+                url:"/admin/permission",
+                dialogVisible:false,
+                formdata:{}
+            },
+            methods: {
+                async getAllData(){
+                   let {data}=await axios.get(this.url,{})
+                    this.datalist=data
+                },
+                handleEditClick(item){
+                    console.log(item)
+                    this.formdata=item;
+                    this.dialogVisible=true;
+                },
+                async handleDelClick(item){
+                    let {data}=await axios.delete(this.url,{data:item});
+                    this.getAllData();
+                },
+                async saveData(){
+                    let {data}=await axios.post(this.url,this.formdata);
+                    this.dialogVisible=false;
+                    this.getAllData();
+                }
+
+
+            }
+
+
+        })
+
+</script>
+</body>
+</html>

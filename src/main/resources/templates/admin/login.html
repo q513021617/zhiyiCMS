@@ -162,7 +162,6 @@
                         });
 
                     console.log(data);
-                    //   debugger
                     if (data.status===200) {
                         localStorage.setItem("userData", JSON.stringify(data.data));
                         window.localStorage.setItem('token',data.data.token)

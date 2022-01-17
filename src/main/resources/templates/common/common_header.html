@@ -9,6 +9,18 @@
     <script src="/element.js"></script>
     <script src="/axios.min.js"></script>
     <script src="/cookies.js"></script>
+    <script>
+        axios.interceptors.request.use(config => {
+
+            // 为请求头添加token 验证的 Authorization 字段
+            config.headers.Authorization = "Bearer "+ window.localStorage.getItem('token')
+            return config
+        }, error => {
+            return Promise.reject(error);
+        });
+    </script>
+    <script src="/req/menu.js"></script>
+    <script src="/req/user.js"></script>
     <title th:replace="${title}">Title</title>
 </head>
 <body>

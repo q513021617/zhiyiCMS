@@ -12,7 +12,7 @@ public class CommonPermissionController {
     @Autowired
     private PermissionDao permissionDao;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Permission> getPermissioList(){
 
         return permissionDao.findAll();
@@ -24,22 +24,17 @@ public class CommonPermissionController {
         return  permissionDao.findById(id).get();
     }
 
-    @PutMapping("/")
-    public Permission updateMenu(Permission permission){
+
+
+    @PostMapping
+    public Permission addPermission(@RequestBody Permission permission){
 
 
         return  permissionDao.save(permission);
     }
 
-    @PostMapping("/")
-    public Permission addPermission(Permission permission){
-
-
-        return  permissionDao.save(permission);
-    }
-
-    @DeleteMapping("/")
-    public void delOnePermission(Permission permission){
+    @DeleteMapping
+    public void delOnePermission(@RequestBody Permission permission){
 
         permissionDao.delete(permission);
     }
