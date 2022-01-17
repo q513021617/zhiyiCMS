@@ -166,8 +166,8 @@
                     if (data.status===200) {
                         localStorage.setItem("userData", JSON.stringify(data.data));
                         window.localStorage.setItem('token',data.data.token)
-                        cookieOption.setCookie("userdata", data.data.id);
-                        location.href = "/#/index/home";
+                        setCookie("userdata", data.data.id);
+                        location.href = "/path?url=admin/index";
                         return;
                     }
 
