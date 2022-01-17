@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="common_header(title,links,styles)">
+    <meta charset="UTF-8">
+    <script src="/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/element.css">
+    <!-- 引入组件库 -->
+    <script src="/element.js"></script>
+    <script src="/axios.min.js"></script>
+
+    <title th:replace="${title}">Title</title>
+</head>
+<body>
+
+</body>
+</html>
