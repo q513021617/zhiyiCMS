@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -42,5 +44,8 @@ public class BookServiceImpl implements BookService {
         bookDao.delete(book);
     }
 
-
+    @Override
+    public List<Book> getAllBooks() {
+        return bookDao.findAll();
+    }
 }

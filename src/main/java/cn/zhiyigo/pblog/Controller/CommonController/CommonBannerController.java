@@ -2,44 +2,41 @@ package cn.zhiyigo.pblog.Controller.CommonController;
 
 import cn.zhiyigo.pblog.Dao.BannerDao;
 import cn.zhiyigo.pblog.Model.Banner;
+import cn.zhiyigo.pblog.Model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 public class CommonBannerController {
+
     @Autowired
     private BannerDao bannerDao;
 
 
-    @GetMapping("/")
-    public List<Banner> getBannerList(){
+    @GetMapping
+    public Response getBannerList(){
 
-        return bannerDao.findAll();
+        List<Banner> bannerList = bannerDao.findAll();
+        return Response.success(bannerList);
     }
 
     @GetMapping("/{id}")
-    public Banner getBannerByid(@PathVariable("id")Integer id){
-
-        return  bannerDao.findById(id).get();
+    public Response getBannerByid(@PathVariable("id")Integer id){
+        Banner banner = bannerDao.findById(id).get();
+        return Response.success(banner);
     }
 
-    @PutMapping("/")
-    public Banner updateMenu(Banner banner){
+    @PostMapping
+    public Response addBanner(@RequestBody Banner banner){
 
 
-        return  bannerDao.save(banner);
+        Banner save = bannerDao.save(banner);
+        return Response.success(save);
     }
 
-    @PostMapping("/")
-    public Banner addBanner(Banner banner){
-
-
-        return  bannerDao.save(banner);
-    }
-
-    @DeleteMapping("/")
-    public void delOneBanner(Banner banner){
+    @DeleteMapping
+    public void delOneBanner(@RequestBody Banner banner){
 
         bannerDao.delete(banner);
     }

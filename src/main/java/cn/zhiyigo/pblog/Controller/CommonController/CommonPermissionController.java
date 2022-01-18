@@ -3,6 +3,7 @@ package cn.zhiyigo.pblog.Controller.CommonController;
 import cn.zhiyigo.pblog.Dao.PermissionDao;
 import cn.zhiyigo.pblog.Dao.PermissionDao;
 import cn.zhiyigo.pblog.Model.Permission;
+import cn.zhiyigo.pblog.Model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,24 +14,26 @@ public class CommonPermissionController {
     private PermissionDao permissionDao;
 
     @GetMapping
-    public List<Permission> getPermissioList(){
-
-        return permissionDao.findAll();
+    public Response getPermissioList(){
+        List<Permission> permissionDaoAll = permissionDao.findAll();
+        return Response.success(permissionDaoAll);
     }
 
     @GetMapping("/{id}")
-    public Permission getPermissionByid(@PathVariable("id")Integer id){
+    public Response getPermissionByid(@PathVariable("id")Integer id){
 
-        return  permissionDao.findById(id).get();
+        Permission permission = permissionDao.findById(id).get();
+        return Response.success(permission);
     }
 
 
 
     @PostMapping
-    public Permission addPermission(@RequestBody Permission permission){
+    public Response addPermission(@RequestBody Permission permission){
 
 
-        return  permissionDao.save(permission);
+        Permission save = permissionDao.save(permission);
+        return Response.success(save);
     }
 
     @DeleteMapping

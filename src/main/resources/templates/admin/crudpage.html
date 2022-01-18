@@ -84,7 +84,7 @@
                 async getAllData(){
 
                     let {data}=await axios.get(this.url,{})
-                    this.datalist=data
+                    this.datalist=data.data
                 },
                 coppyArray (obj){
                     let newObj = null

@@ -2,7 +2,9 @@ package cn.zhiyigo.pblog.Controller.CommonController;
 
 import cn.zhiyigo.pblog.Dao.ArticleDao;
 import cn.zhiyigo.pblog.Model.Article;
+import cn.zhiyigo.pblog.Model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -16,39 +18,37 @@ public class CommonAricleController {
         @Autowired
        private ArticleDao articleDao;
 
-    @GetMapping("/")
-    public List<Article> getArticleList(){
+    @GetMapping
+    public Response getArticleList(){
 
-        return articleDao.findAll();
+        List<Article> articleList = articleDao.findAll();
+        return Response.success(articleList);
     }
 
     @GetMapping("/{id}")
-    public Article getArticleByid(@PathVariable("id")Integer id){
+    public Response getArticleByid(@PathVariable("id")Integer id){
 
-        return  articleDao.findById(id).get();
+        Article article = articleDao.findById(id).get();
+        return Response.success(article);
     }
 
-    @PutMapping("/")
-    public Article updateArticle(@RequestBody Article article){
-
-        article.setPostTime(new Timestamp(new Date().getTime()));
-        article.setUpdateTime(new Timestamp(new Date().getTime()));
-        return  articleDao.save(article);
-    }
 
     @GetMapping("/{page}/{size}")
-    public Iterable<Article> getArticleList(@PathVariable("page")String page, @PathVariable("size")int size){
+    public Response getArticleList(@PathVariable("page")String page, @PathVariable("size")int size){
         Pageable pageable = new PageRequest(Integer.parseInt(page),size);
 
-        return articleDao.findAll(pageable);
+        Page<Article> articles = articleDao.findAll(pageable);
+        return Response.success(articles);
     }
 
-    @PostMapping("/")
-    public Article addArticle(@RequestBody Article article){
+    @PostMapping
+    public Response addArticle(@RequestBody Article article){
 
         article.setPostTime(new Timestamp(new Date().getTime()));
         article.setUpdateTime(new Timestamp(new Date().getTime()));
-        return  articleDao.save(article);
+
+        Article save = articleDao.save(article);
+        return  Response.success(save);
     }
 
     @DeleteMapping("/")

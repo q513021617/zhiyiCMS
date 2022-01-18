@@ -6,6 +6,7 @@ import cn.zhiyigo.pblog.Model.Response;
 import cn.zhiyigo.pblog.Servcie.FiledService;
 import com.mysql.jdbc.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +24,15 @@ public class FiledController {
     FiledService filedService;
 
     @GetMapping
-    public Iterable<Filed> getFiledList(@RequestParam(value = "page",required =false)String page, @RequestParam(value = "size",required = false)String size){
+    public Response getFiledList(@RequestParam(value = "page",required =false)String page, @RequestParam(value = "size",required = false)String size){
         if(StringUtils.isNullOrEmpty(page)){
-            return filedDao.findAll();
+            List<Filed> daoAll = filedDao.findAll();
+            return Response.success(daoAll);
         }
         Pageable pageable = new PageRequest(Integer.parseInt(page),Integer.parseInt(size));
 
-        return filedDao.findAll(pageable);
+        Page<Filed> filedDaoAll = filedDao.findAll(pageable);
+        return Response.success(filedDaoAll);
     }
 
     @GetMapping("/{id}")

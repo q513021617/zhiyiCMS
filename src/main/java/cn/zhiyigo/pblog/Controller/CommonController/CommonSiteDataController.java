@@ -2,6 +2,7 @@ package cn.zhiyigo.pblog.Controller.CommonController;
 
 import cn.zhiyigo.pblog.Dao.SiteDataDao;
 import cn.zhiyigo.pblog.Dao.SiteDataDao;
+import cn.zhiyigo.pblog.Model.Response;
 import cn.zhiyigo.pblog.Model.SiteData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,34 +16,30 @@ public class CommonSiteDataController {
     private SiteDataDao siteDataDao;
 
 
-    @GetMapping("/")
+    @GetMapping
     public List<SiteData> getSiteDataList(){
 
         return siteDataDao.findAll();
     }
 
     @GetMapping("/{id}")
-    public SiteData getSiteDataByid(@PathVariable("id")Integer id){
+    public Response getSiteDataByid(@PathVariable("id")Integer id){
 
-        return  siteDataDao.findById(id).get();
+        SiteData siteData = siteDataDao.findById(id).get();
+        return Response.success(siteData);
     }
 
-    @PutMapping("/")
-    public SiteData updateSiteData(SiteData siteData){
+
+    @PostMapping
+    public Response addSiteData(@RequestBody SiteData siteData){
 
 
-        return  siteDataDao.save(siteData);
+        SiteData save = siteDataDao.save(siteData);
+        return Response.success(save);
     }
 
-    @PostMapping("/")
-    public SiteData addSiteData(SiteData siteData){
-
-
-        return  siteDataDao.save(siteData);
-    }
-
-    @DeleteMapping("/")
-    public void delOneSiteData(SiteData siteData){
+    @DeleteMapping
+    public void delOneSiteData(@RequestBody SiteData siteData){
 
         siteDataDao.delete(siteData);
     }

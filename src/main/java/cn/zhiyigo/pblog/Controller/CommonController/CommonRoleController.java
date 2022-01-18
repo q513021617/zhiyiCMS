@@ -1,6 +1,7 @@
 package cn.zhiyigo.pblog.Controller.CommonController;
 
 import cn.zhiyigo.pblog.Dao.RoleDao;
+import cn.zhiyigo.pblog.Model.Response;
 import cn.zhiyigo.pblog.Model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,34 +14,32 @@ public class CommonRoleController {
     private RoleDao roleDao;
 
 
-    @GetMapping("/")
-    public List<Role> getRoleList(){
+    @GetMapping
+    public Response getRoleList(){
 
-        return roleDao.findAll();
+        List<Role> roleDaoAll = roleDao.findAll();
+        return Response.success(roleDaoAll);
     }
 
     @GetMapping("/{id}")
-    public Role getRoleByid(@PathVariable("id")Integer id){
+    public Response getRoleByid(@PathVariable("id")Integer id){
 
-        return  roleDao.findById(id).get();
+        Role role = roleDao.findById(id).get();
+        return Response.success(role);
     }
 
-    @PutMapping("/")
-    public Role updateRole(Role role){
 
 
-        return  roleDao.save(role);
-    }
-
-    @PostMapping("/")
-    public Role addRole(Role role){
+    @PostMapping
+    public Response addRole(@RequestBody Role role){
 
 
-        return  roleDao.save(role);
+        Role save = roleDao.save(role);
+        return Response.success(save);
     }
 
     @DeleteMapping("/")
-    public void delOneRole(Role role){
+    public void delOneRole(@RequestBody Role role){
 
         roleDao.delete(role);
     }

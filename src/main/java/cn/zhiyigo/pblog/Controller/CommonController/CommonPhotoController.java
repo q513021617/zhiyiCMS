@@ -2,6 +2,7 @@ package cn.zhiyigo.pblog.Controller.CommonController;
 
 import cn.zhiyigo.pblog.Dao.PhotoDao;
 import cn.zhiyigo.pblog.Model.Photo;
+import cn.zhiyigo.pblog.Model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,34 +15,32 @@ public class CommonPhotoController {
     private PhotoDao photoDao;
 
 
-    @GetMapping("/")
-    public List<Photo> getPhotoList(){
+    @GetMapping
+    public Response getPhotoList(){
 
-        return photoDao.findAll();
+        List<Photo> photoDaoAll = photoDao.findAll();
+        return Response.success(photoDaoAll);
     }
 
     @GetMapping("/{id}")
-    public Photo getPhotoByid(@PathVariable("id")Integer id){
+    public Response getPhotoByid(@PathVariable("id")Integer id){
 
-        return  photoDao.findById(id).get();
+        Photo photo = photoDao.findById(id).get();
+        return Response.success(photo);
     }
 
-    @PutMapping("/")
-    public Photo updatePhoto(Photo photo){
 
-
-        return  photoDao.save(photo);
-    }
 
     @PostMapping("/")
-    public Photo addPhoto(Photo photo){
+    public Response addPhoto(@RequestBody Photo photo){
 
 
-        return  photoDao.save(photo);
+        Photo photosave = photoDao.save(photo);
+        return Response.success(photosave);
     }
 
     @DeleteMapping("/")
-    public void delOnePhoto(Photo photo){
+    public void delOnePhoto(@RequestBody Photo photo){
 
         photoDao.delete(photo);
     }

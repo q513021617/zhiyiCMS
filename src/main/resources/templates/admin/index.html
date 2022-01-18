@@ -49,7 +49,7 @@
             queryAllMenu:async function () {
                 var _this=this;
                 let {data}=await queryMenuList();
-                _this.menulist=data;
+                _this.menulist=data.data;
                 _this.$forceUpdate();
             },
             quitlogin:function(){

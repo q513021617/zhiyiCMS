@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/book")
@@ -18,8 +20,12 @@ public class HomeBookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/")
-    public Response getBookList(@RequestParam("page")Integer page,@RequestParam("size")Integer size){
+    @GetMapping
+    public Response getBookList(@RequestParam(value = "page",required = false)Integer page,@RequestParam(value = "size",required = false)Integer size){
+        if(page==null){
+            List<Book> allBooks = bookService.getAllBooks();
+            return Response.success(allBooks);
+        }
         PageRequest pageRequest = new PageRequest(page,size);
         Page<Book> books = bookService.getBooks(pageRequest);
 
@@ -37,7 +43,7 @@ public class HomeBookController {
 
 
 
-    @PostMapping("/")
+    @PostMapping
     public Response addBook(@RequestBody Book book){
 
         bookService.addBook(book);
