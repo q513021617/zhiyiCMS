@@ -15,7 +15,7 @@
 
                 <el-menu-item :index="index" v-for="(item,index) in menulist">
                     <i class="el-icon-menu"></i>
-                    <span slot="title" @click="changeUrl(item.url)">{{item.name}}</span>
+                    <span slot="title" @click="changeUrl(item)">{{item.name}}</span>
                 </el-menu-item>
 
             </el-menu>
@@ -36,8 +36,12 @@
             pagekey:888
         }
         ,methods:{
-            changeUrl (url){
-                this.routeUrl=url;
+            changeUrl (path){
+                this.routeUrl=path.url;
+                console.log(path);
+                if(path.apiUrl){
+                    this.routeUrl=this.routeUrl+"&api="+path.apiUrl
+                }
                 this.pagekey=this.pagekey+1;
                 console.log(this.pagekey);
 

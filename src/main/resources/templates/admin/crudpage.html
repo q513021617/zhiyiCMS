@@ -10,14 +10,17 @@
 <body>
 <div>
 <div  id="app">
+    <el-row>
+        <el-button type="primary" @click="addData">新增</el-button>
+    </el-row>
     <el-table
             :data="datalist"
             border
             style="width: 100%">
 
         <el-table-column
-                :prop="item.fieldName"
-                :label="item.fieldCnName" v-for="item in columns">
+                :prop="item.filedName"
+                :label="item.filedCnName" v-for="item in columns">
         </el-table-column>
         <el-table-column
                 fixed="right"
@@ -34,8 +37,8 @@
             :visible.sync="dialogVisible"
             width="30%">
         <el-form :inline="true" :model="formdata" >
-            <el-form-item :label="item.fieldCnName" v-for="item in columns">
-                <el-input v-model="formdata[item.fieldName]" ></el-input>
+            <el-form-item :label="item.filedCnName" v-for="item in columns">
+                <el-input v-model="formdata[item.filedName]" ></el-input>
             </el-form-item>
         </el-form>
     <el-button @click="dialogVisible = false">取 消</el-button>
@@ -47,25 +50,57 @@
 <script>
     new Vue({
             el: '#app',
-            created() {
+        async created() {
+                await this.getBaseInfo();
                 this.getAllData()
             },
-            mounted() {},
+        async mounted() {
+
+            },
             data: {
                 datalist:[],
-                columns:[{fieldName:"id",fieldCnName:"#"},{fieldName:"name",fieldCnName:"菜单名"},{fieldName:"enname",fieldCnName:"菜单英文名"}],
-                url:"/admin/permission",
+                columns:[],
+                url:"",
                 dialogVisible:false,
                 formdata:{}
             },
             methods: {
+                addData(){
+
+
+                    for (const argumentsKey in this.formdata) {
+                        this.formdata[argumentsKey]='';
+                    }
+                    this.dialogVisible=true;
+                },
+                async getBaseInfo(){
+                    let {data}=await axios.get("/mod",{})
+                    data=data.data;
+                    console.log(data);
+                    this.url=this.url+data.api;
+                    this.columns=data.columns;
+                    return data
+                },
                 async getAllData(){
-                   let {data}=await axios.get(this.url,{})
+
+                    let {data}=await axios.get(this.url,{})
                     this.datalist=data
+                },
+                coppyArray (obj){
+                    let newObj = null
+                    if (typeof obj === 'object' && obj !== null) {
+                        newObj = obj instanceof Array ? [] : {}
+                        for (let i in obj) {
+                            newObj[i] = typeof obj[i] === 'object' ? this.coppyArray(obj[i]) : obj[i]
+                        }
+                    } else {
+                        newObj = obj
+                    }
+                    return newObj
                 },
                 handleEditClick(item){
                     console.log(item)
-                    this.formdata=item;
+                    this.formdata=this.coppyArray(item);
                     this.dialogVisible=true;
                 },
                 async handleDelClick(item){

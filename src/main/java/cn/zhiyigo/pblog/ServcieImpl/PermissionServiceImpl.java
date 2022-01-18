@@ -21,4 +21,9 @@ public class PermissionServiceImpl implements PermissionService {
 
     }
 
+    @Override
+    public List<Permission> selectByName(String name) {
+        return permissionDao.findAllByEnname(name);
+    }
+
 }

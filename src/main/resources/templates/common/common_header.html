@@ -18,10 +18,29 @@
         }, error => {
             return Promise.reject(error);
         });
+
+        axios.interceptors.response.use(response => Promise.resolve(response),
+            error => { // 这里对 error 预期结果是包含具体错误信息和状态码
+
+                if (error && error.response && error.response.status) {
+                    switch (error.response.status) {
+                        case 500:
+                            // do something...
+                            break
+                        case 404:
+                            // do something...
+                            break
+                        default:
+                            location.href="/path?url=admin/login"
+                            break
+                    }
+                }
+            });
     </script>
     <script src="/req/menu.js"></script>
     <script src="/req/user.js"></script>
     <title th:replace="${title}">Title</title>
+    <style th:replace="${styles}"></style>
 </head>
 <body>
 

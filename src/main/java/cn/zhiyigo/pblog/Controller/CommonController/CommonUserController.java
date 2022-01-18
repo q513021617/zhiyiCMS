@@ -16,7 +16,7 @@ public class CommonUserController {
     @Autowired
     private UserDao userDao;
 
-    @GetMapping("/")
+    @GetMapping
     public List<WebUser> getUserList(){
 
         return userDao.findAll();

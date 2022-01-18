@@ -13,6 +13,7 @@ import java.util.List;
 public interface ArticleDao extends JpaRepository<Article,Integer> {
 
     Page<Article> findAll(Pageable pageable);
+
     @Query(value="select * from article where article_content like %?1% or title like %?1%",nativeQuery=true)
     List<Article> findAllByWord(String word);
 }

@@ -25,4 +25,6 @@ public interface PermissionDao extends JpaRepository<Permission,Integer> {
             "where user.id:userid",nativeQuery = true)
     @Transactional
     List<Permission> selectByUserId(@Param("userid") Integer userid);
+
+    List<Permission> findAllByEnname(String name);
 }
