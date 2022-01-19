@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="common_header(title,links,styles)">
+    <meta charset="UTF-8">
+    <script src="/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/element.css">
+    <!-- 引入组件库 -->
+    <script src="/element.js"></script>
+    <script src="/axios.min.js"></script>
+    <script src="/cookies.js"></script>
+    <script src="/httpVueLoader.js"></script>
+    <script crossorigin="anonymous"  src="https://lib.baomitu.com/echarts/5.2.0/echarts.min.js"></script>
+    <script>
+        axios.interceptors.request.use(config => {
+
+            // 为请求头添加token 验证的 Authorization 字段
+            config.headers.Authorization = "Bearer "+ window.localStorage.getItem('token')
+            return config
+        }, error => {
+            return Promise.reject(error);
+        });
+
+        axios.interceptors.response.use(response => Promise.resolve(response),
+            error => { // 这里对 error 预期结果是包含具体错误信息和状态码
+
+                if (error && error.response && error.response.status) {
+                    switch (error.response.status) {
+                        case 500:
+                            // do something...
+                            break
+                        case 404:
+                            // do something...
+                            break
+                        default:
+                            location.href="/path?url=admin/login"
+                            break
+                    }
+                }
+            });
+    </script>
+    <script src="/req/menu.js"></script>
+    <script src="/req/user.js"></script>
+    <title th:replace="${title}">Title</title>
+    <style >
+        .hideSidebar .fixed-header {
+            width: calc(100% - 54px)
+        }
+        .drawer-bg {
+            background: #000;
+            opacity: 0.3;
+            width: 100%;
+            top: 0;
+            height: 100%;
+            position: absolute;
+            z-index: 999;
+        }
+        .app-wrapper {
+           display: flex;
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        .main-container{
+            width: 100%;
+        }
+        .app-wrapper .mobile .openSidebar {
+            position: fixed;
+            top: 0;
+        }
+        .mobile .fixed-header {
+            width: 100%;
+        }
+        .page-header-right{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .page-header-right i{
+            display: block;
+        }
+        .page-header{
+            width: 95%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 9;
+            width: calc(100% - 10%);
+            transition: width 0.28s;
+        }
+        .home-container{
+            display: flex;
+            flex-direction: column;
+        }
+        .number-card-group{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .chart-group{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,41 +1,113 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="common/common_header :: common_header(~{::title},~{::link},~{})">
+<head th:include="common/common_admin_header :: common_header(~{::title},~{::link},~{})">
     <meta charset="UTF-8">
-    <title>zhiyigocms--首页</title>
+    <title>zhiyigocms--管理首页</title>
 </head>
 <body>
 <div id="app">
 
+    <el-container>
 
-    <el-row>
-        <el-col :span="6">
-            <el-button @click="isCollapse=!isCollapse">展开</el-button>
+        <div>
+
             <el-menu default-active="1" class="el-menu-vertical-demo"  :collapse="isCollapse">
-
                 <el-menu-item :index="index" v-for="(item,index) in menulist">
                     <i class="el-icon-menu"></i>
                     <span slot="title" @click="changeUrl(item)">{{item.name}}</span>
                 </el-menu-item>
 
             </el-menu>
-        </el-col>
-        <el-col :span="18" ><iframe :src="routeUrl" :key="pagekey" width="100%" height="850px"></iframe></el-col>
-    </el-row>
+        </div>
+        <div class="main-container">
+            <el-card class="box-card">
+            <div class="page-header">
+
+                <el-button icon="el-icon-s-unfold"  @click="isCollapse=!isCollapse" ></el-button>
+                <div class="page-header-right">
+                    <el-input placeholder="请输入内容" v-model="searchText" class="input-with-select">
+                        <el-select v-model="searchSelect" slot="prepend" placeholder="请选择">
+                            <el-option label="餐厅名" value="1"></el-option>
+                            <el-option label="订单号" value="2"></el-option>
+                            <el-option label="用户电话" value="3"></el-option>
+                        </el-select>
+                        <el-button slot="append" icon="el-icon-search"></el-button>
+                    </el-input>
+                    <el-button type="primary" icon="el-icon-message" circle></el-button>
+                    <el-dropdown :hide-on-click="false">
+  <span class="el-dropdown-link">
+   <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+  </span>
+                        <el-dropdown-menu slot="dropdown">
+
+                            <el-dropdown-item>个人信息</el-dropdown-item>
+                            <el-dropdown-item>退出登录</el-dropdown-item>
+
+                        </el-dropdown-menu>
+                    </el-dropdown>
+
+
+                </div>
+            </div>
+            </el-card>
+            <div>
+                <el-card class="box-card">
+                    <el-breadcrumb separator="/">
+                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+
+                    </el-breadcrumb>
+                </el-card>
+                <iframe :src="routeUrl" :key="pagekey" width="100%" height="850px"></iframe>
+            </div>
+        </div>
+</div>
+    </el-container>
+
+
+
+
+
 </div>
 
 <script>
+    Vue.use(httpVueLoader);
     new Vue({
             el: '#app',
         data:{
 
                 menulist:[],
                 user:{},
-            isCollapse:false,
-            routeUrl:"http://127.0.0.1:7888/path?url=index",
-            pagekey:888
-        }
+            isCollapse:true,
+            routeUrl:"http://127.0.0.1:7888/path?url=admin/home",
+            pagekey:888,
+            device:"pc",
+            sidebar:{opened:true,withoutAnimation:false},
+            needTagsView:true,
+            fixedHeader:true,
+            searchText:"",
+            searchSelect:""
+        },computed: {
+            classObj() {
+                return {
+                    hideSidebar: !this.sidebar.opened,
+                    openSidebar: this.sidebar.opened,
+                    withoutAnimation: this.sidebar.withoutAnimation,
+                    mobile: this.device === 'mobile'
+                    }
+                }
+            },
+            components: {
+                'Navbar': 'url:../components/Navbar.vue'
+                ,'Settings': 'url:../components/Settings/index.vue',
+                'Sidebar': 'url:../components/Sidebar/index.vue',
+                'TagsView': 'url:../components/TagsView/index.vue'
+            }
         ,methods:{
+            handleClickOutside() {
+
+                this.sidebar.withoutAnimation=false;
+            },
             changeUrl (path){
                 this.routeUrl=path.url;
                 console.log(path);

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MusicServiceImpl implements MusicService {
 
@@ -18,6 +20,11 @@ public class MusicServiceImpl implements MusicService {
     public Page<Music> getMusics(PageRequest pageRequest) {
 
         return musicDao.findAll(pageRequest);
+    }
+
+    @Override
+    public List<Music> getAllMusics() {
+        return musicDao.findAll();
     }
 
     @Override

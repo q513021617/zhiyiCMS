@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/game")
 public class HomeGameController {
@@ -15,9 +17,12 @@ public class HomeGameController {
     @Autowired
     private GameService gameService;
 
-    @GetMapping("/")
-    public Response getGameList(@RequestParam("page")Integer page, @RequestParam("size")Integer size,@RequestParam(value = "keyword",required = false)String keyword){
-
+    @GetMapping
+    public Response getGameList(@RequestParam(value = "page",required = false)Integer page, @RequestParam(value = "size",required = false)Integer size,@RequestParam(value = "keyword",required = false)String keyword){
+        if(page==null){
+            List<Game> allGames = gameService.getAllGames();
+            return Response.success(allGames);
+        }
         PageRequest pageRequest = new PageRequest(page,size);
 
         Page<Game> Games = gameService.getGames(pageRequest,keyword);
@@ -33,16 +38,16 @@ public class HomeGameController {
 
 
 
-    @PostMapping("/")
+    @PostMapping
     public Response addGame(@RequestBody Game Game){
 
         gameService.addGame(Game);
         return  Response.success();
     }
 
-    @DeleteMapping("/{id}")
-    public Response delOneGame(@PathVariable("id") Integer id){
-        gameService.DelGame(id);
+    @DeleteMapping
+    public Response delOneGame(@RequestBody Game game){
+        gameService.DelGame(game.getId());
         return  Response.success();
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GameServiceImpl implements GameService {
 
@@ -26,6 +28,11 @@ public class GameServiceImpl implements GameService {
         Example<Game> example = Example.of(game,matcher);
 
         return gameDao.findAll(example,pageRequest);
+    }
+
+    @Override
+    public List<Game> getAllGames() {
+        return gameDao.findAll();
     }
 
     @Override

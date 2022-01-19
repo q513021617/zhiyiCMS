@@ -47,7 +47,7 @@ public class WebServerSecurityConfig extends WebSecurityConfigurerAdapter {
                 //login 不拦截
                 .antMatchers("/adminlogin","/webLogin","/register","/login","/getUserNum/*","/api/aricle/*","/api/book/*","/api/user/*"
                         ,"/path","/favicon.ico","/img/*","/vue.js","/element.css","/element.js","/fonts/*","/axios.min.js","/cookies.js","/req/*"
-                ).permitAll()
+                ,"/httpVueLoader.js","/components/*","/components/*/*","/vue-echarts.min.js").permitAll()
                 .anyRequest().authenticated()
                 .and().headers().frameOptions().disable()
                 //授权
